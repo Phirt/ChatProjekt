@@ -21,30 +21,15 @@ public class User extends Thread
 {
 
   String username;
-  Socket link;
 
-  public User(String username, Socket link)
+  public User(String username)
   {
     this.username = username;
-    this.link = link;
   }
+
 
   public void run()
   {
-
-    try
-    {
-      PrintWriter prnt = new PrintWriter(link.getOutputStream(), true);
-      Scanner scn = new Scanner(link.getInputStream());
-
-      String msg = "";
-      msg = scn.nextLine();
-      prnt.println("TEST user created");
-      prnt.println(msg);
-
-    } catch (IOException ex)
-    {
-      Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
-    }
+    
   }
 }

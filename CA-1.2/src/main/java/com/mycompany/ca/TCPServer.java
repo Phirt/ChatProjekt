@@ -47,22 +47,8 @@ public class TCPServer
       PrintWriter prnt = new PrintWriter(link.getOutputStream(), true);
       Scanner scn = new Scanner(link.getInputStream());
 
-      prnt.println("Welcome to Echo. Please type a username and press enter");
-      String msg = "";
-      msg = scn.nextLine();
-      for (int i = 0; i < users.size() + 1; i++)
-      {
-        if (users.get(i) == null)
-        {
-          users.add(new User(msg, link));
-        }
-        prnt.println("You are logged in as user: " + msg);
-      }
-      if (msg.contains("UPPER#"))
-      {
-        String[] parts = msg.split("#");
-        prnt.println(parts[1].toUpperCase());
-      }
+      Client c = new Client(link);
+      c.start();
     }
 
 //  public static void getTime(Socket s)
