@@ -5,11 +5,83 @@
  */
 package com.mycompany.ca;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.net.InetSocketAddress;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Mathias
  */
 public class TCPServer
 {
-  
+
+  static String ip;
+  static int portNum;
+  static ArrayList<User> users = new ArrayList<>();
+  static ServerSocket ss;
+
+  public static void main(String[] args) throws IOException
+  {
+    if (args.length == 2)
+    {
+      ip = args[0];
+      portNum = Integer.parseInt(args[1]);
+    }
+    ss = new ServerSocket();
+    ss.bind(new InetSocketAddress(ip, portNum));
+    System.out.println("Server started - listening on port " + portNum + " bound to ip " + ip);
+    while (true)
+    {
+      Socket link = ss.accept();
+      System.out.println("New client connection");
+
+      PrintWriter prnt = new PrintWriter(link.getOutputStream(), true);
+      Scanner scn = new Scanner(link.getInputStream());
+
+      prnt.println("Welcome to Echo. Please type a username and press enter");
+      String msg = "";
+      msg = scn.nextLine();
+      for (int i = 0; i < users.size() + 1; i++)
+      {
+        if (users.get(i) == null)
+        {
+          users.add(new User(msg, link));
+        }
+        prnt.println("You are logged in as user: " + msg);
+      }
+      if (msg.contains("UPPER#"))
+      {
+        String[] parts = msg.split("#");
+        prnt.println(parts[1].toUpperCase());
+      }
+    }
+
+//  public static void getTime(Socket s)
+//  {
+//    try
+//    {
+//      PrintWriter prnt = new PrintWriter(s.getOutputStream(), true);
+//
+//      SimpleDateFormat dateFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy");
+//      Date date = new Date();
+//      prnt.println("Current time: " + dateFormat.format(date));
+//
+//      s.close();
+//      prnt.close();
+//    } catch (IOException ex)
+//    {
+//      Logger.getLogger(TCPServer.class.getName()).log(Level.SEVERE, null, ex);
+//    }
+//
+//  }
+  }
 }
