@@ -5,13 +5,6 @@
  */
 package CA;
 
-import java.net.Socket;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import static CA.TCPServer.ss;
 
 /**
  *
