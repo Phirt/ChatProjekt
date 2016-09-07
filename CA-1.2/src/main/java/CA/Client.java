@@ -43,8 +43,15 @@ public class Client extends Thread
         String[] parts = msg.split(":");
         String username = parts[1];
 
+        //if()
+        {
         prnt.println("You are connected as: " + username);
-
+          while(!msg.contains("LOGOUT:"))
+          {
+            
+          }
+        }
+        
       }
 
     } catch (IOException ex)
